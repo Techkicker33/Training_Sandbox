@@ -1,14 +1,25 @@
 import random
 #----------------------------------------------------------------------------------------------------------
-PlayerRaces =('Elf','Dwarf','Human','Teifling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath')
+PlayerRaces =('Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath')
 PlayerClass=('Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk')
 CharAttr=('Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution')
 
 
-RacialMod={'Elf':'','Dwarf':'','Human':'','Teifling':'','Halfling':'','Gnome':'','Dragonborn':'','Aasimar':'','Orc':'','Goaliath':''}
+RacialMod={
+    'Elf': '[0,0,2,0,0,0]',
+    'Dwarf': '[0,0,0,0,0,2]',
+    'Human': '[1,1,1,1,1,1]',
+    'Tiefling': '[0,0,0,0,1,0]',
+    'Halfling': '[0,0,2,0,0,0]',
+    'Gnome': '[0,0,0,0,2,0]',
+    'Dragonborn': '[2,0,0,0,0,1]',
+    'Aasimar': '[0,1,0,0,0,2]',
+    'Orc': '[2,0,0,0,0,1]',
+    'Goaliath': '[2,0,0,1,0,0]'
+}
 stack=[] #final stat stack
 RollHist={} #log of rolls
-'''Overal goal is to build a new character stat generator that will roll initial numbers, then select initial player race.
+'''Overall goal is to build a new character stat generator that will roll initial numbers, then select initial player race.
 After Race, select class.  With this information, then create the final list of Player Stats.'''
 #----------------------------------------------------------------------------------------------------------
 #create list of 6 values made by rolling 4d6 and dropping the lowest. sum values from each roll.
@@ -29,6 +40,8 @@ while len(stack)<6:
     stack.append(total)
     if len(stack)==6:
         print('Your character will start with the following player stats '+str(stack)+'\n')
+   #for i in RollHist:
+        #RollHist.append(i:stack)
     if len(stack)>6:
         print('there was an error. re-set to 0')
         stack=[]
