@@ -4,7 +4,6 @@ PlayerRaces =('Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','
 PlayerClass=('Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk')
 CharAttr=('Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution')
 
-
 RacialMod={
     'Elf': '[0,0,2,0,0,0]',
     'Dwarf': '[0,0,0,0,0,2]',
@@ -34,14 +33,23 @@ def roll_dice():
         rolls.pop() #remove lowest of four numbers
     #print(rolls)
     return rolls
+#-------------------------------------------------------------------------------------------------------------
+
+def updatelog(rolled_numbs):
+    LenOfDict= len(RollHist.keys())
+    RollHist[LenOfDict+1]=rolled_numbs
+    print(LenOfDict)
+    
+
+#-------------------------------------------------------------------------------------------------------------
 while len(stack)<6:
     total=sum(roll_dice())
     rolls=0
     stack.append(total)
     if len(stack)==6:
         print('Your character will start with the following player stats '+str(stack)+'\n')
-   #for i in RollHist:
-        #RollHist.append(i:stack)
+        updatelog(stack)
+   
     if len(stack)>6:
         print('there was an error. re-set to 0')
         stack=[]
@@ -50,5 +58,5 @@ while len(stack)<6:
 SelectRace=input('Select one of the following Races.\n' + str(PlayerRaces)+'\n').lower()
 
 print('You have selected '+str(SelectRace).title())
-print(str(SelectRace).title() + ' recieves the following Racial bonuses')
 
+print(str(SelectRace).title() + ' recieves the following Racial bonuses '+str(RacialMod[SelectRace.title()]))
