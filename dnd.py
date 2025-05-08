@@ -38,11 +38,11 @@ def roll_dice():
 def updatelog(rolled_numbs):
     LenOfDict= len(RollHist.keys())
     RollHist[LenOfDict+1]=rolled_numbs
-    print(LenOfDict)
+    #print(LenOfDict) # for debug
     
 
 #-------------------------------------------------------------------------------------------------------------
-while len(stack)<6:
+while len(stack)<6: #maybe turn into a function and allow user to roll again
     total=sum(roll_dice())
     rolls=0
     stack.append(total)
@@ -53,7 +53,7 @@ while len(stack)<6:
     if len(stack)>6:
         print('there was an error. re-set to 0')
         stack=[]
-#------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------
 
 SelectRace=input('Select one of the following Races.\n' + str(PlayerRaces)+'\n').lower()
 
