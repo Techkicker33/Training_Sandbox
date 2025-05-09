@@ -1,9 +1,12 @@
+from codecs import charmap_build
 import random
+
+
 #----------------------------------------------------------------------------------------------------------
 PlayerRaces =('Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath')
 PlayerClass=('Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk')
 CharAttr=('Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution')
-
+CurCha={}
 RacialMod={
     'Elf': '[0,0,2,0,0,0]',
     'Dwarf': '[0,0,0,0,0,2]',
@@ -17,7 +20,7 @@ RacialMod={
     'Goaliath': '[2,0,0,1,0,0]'
 }
 stack=[] #final stat stack
-RollHist={} #log of rolls
+
 '''Overall goal is to build a new character stat generator that will roll initial numbers, then select initial player race.
 After Race, select class.  With this information, then create the final list of Player Stats.'''
 #----------------------------------------------------------------------------------------------------------
@@ -36,11 +39,10 @@ def roll_dice():
 #-------------------------------------------------------------------------------------------------------------
 
 def updatelog(rolled_numbs):
-    LenOfDict= len(RollHist.keys())
-    RollHist[LenOfDict+1]=rolled_numbs
-    #print(LenOfDict) # for debug
+    filename ='rolledhistory.csv'
+    with open(filename,'a') as file_object:
+        file_object.write(str(rolled_numbs)+ '\n')
     
-
 #-------------------------------------------------------------------------------------------------------------
 while len(stack)<6: #maybe turn into a function and allow user to roll again
     total=sum(roll_dice())
