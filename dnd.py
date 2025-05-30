@@ -1,4 +1,3 @@
-from codecs import charmap_build
 import random
 
 #----------------------------------------------------------------------------------------------------------
@@ -43,21 +42,24 @@ def updatelog(rolled_numbs):
         file_object.write(str(rolled_numbs)+ '\n')
     
 #-------------------------------------------------------------------------------------------------------------
-while len(stack)<6: #maybe turn into a function and allow user to roll again
-    total=sum(roll_dice())
-    rolls=0
-    stack.append(total)
-    if len(stack)==6:
-        print('Your character will start with the following player stats '+str(stack)+'\n')
-        updatelog(stack)
-   
-    if len(stack)>6:
-        print('there was an error. re-set to 0')
-        stack=[]
-#-------------------------------------------------------------------------------------------------------------
+total_roll = int(input('Enter the number of groups you\'d like to roll: '))
 
+all_stats = []  # List to hold all groups
+current_group = []  # Temporary list for each group
+
+while len(all_stats) < total_roll:
+    total = sum(roll_dice())
+    current_group.append(total)
+    if len(current_group) == 6:
+        print('Your character will start with the following player stats ' + str(current_group) + '\n')
+        updatelog(current_group)
+        all_stats.append(current_group)
+        current_group = []
+#-------------------------------------------------------------------------------------------------------------
+"""
 SelectRace=input('Select one of the following Races.\n' + str(PlayerRaces)+'\n').lower()
 
 print('You have selected '+str(SelectRace).title())
 
 print(str(SelectRace).title() + ' recieves the following Racial bonuses '+str(RacialMod[SelectRace.title()]))
+"""
