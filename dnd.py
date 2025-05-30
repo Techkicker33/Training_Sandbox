@@ -2,9 +2,9 @@ from codecs import charmap_build
 import random
 
 #----------------------------------------------------------------------------------------------------------
-PlayerRaces =('Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath')
-PlayerClass=('Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk')
-CharAttr=('Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution')
+PlayerRaces =['Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath']
+PlayerClass=['Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk']
+CharAttr=['Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution']
 CurCha={}
 RacialMod={
     'Elf': '[0,0,2,0,0,0]',
