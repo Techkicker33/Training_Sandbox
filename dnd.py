@@ -1,11 +1,14 @@
-from codecs import charmap_build
 import random
-
+import pandas as pd
 #----------------------------------------------------------------------------------------------------------
 PlayerRaces =['Elf','Dwarf','Human','Tiefling','Halfling','Gnome','Dragonborn','Aasimar','Orc','Goaliath']
 PlayerClass=['Fighter','Wizard','Warlock','Rogue','Druid','Ranger','Sorceror','Cleric','Paladin','Barbarian','Monk']
 CharAttr=['Strength','Charisma','Dexterity','Wisdom','Intelligence','Constitution']
 CurCha={}
+for attr in CharAttr:
+    CurCha[attr]=[]
+
+print(CurCha)
 RacialMod={
     'Elf': '[0,0,2,0,0,0]',
     'Dwarf': '[0,0,0,0,0,2]',
@@ -19,6 +22,8 @@ RacialMod={
     'Goaliath': '[2,0,0,1,0,0]'
 }
 stack=[] #final stat stack
+
+
 
 '''Overall goal is to build a new character stat generator that will roll initial numbers, then select initial player race.
 After Race, select class.  With this information, then create the final list of Player Stats.'''
@@ -43,21 +48,49 @@ def updatelog(rolled_numbs):
         file_object.write(str(rolled_numbs)+ '\n')
     
 #-------------------------------------------------------------------------------------------------------------
-while len(stack)<6: #maybe turn into a function and allow user to roll again
-    total=sum(roll_dice())
-    rolls=0
-    stack.append(total)
-    if len(stack)==6:
-        print('Your character will start with the following player stats '+str(stack)+'\n')
-        updatelog(stack)
-   
-    if len(stack)>6:
-        print('there was an error. re-set to 0')
-        stack=[]
-#-------------------------------------------------------------------------------------------------------------
+total_roll = int(input('Enter the number of groups you\'d like to roll no greater than 6: '))
+if total_roll >=6: #stops rolls at 6, should be 6x6 grid
+    total_roll=6
+    print('Selection cannot exceed 6')
+all_stats = []  # List to hold all groups
+current_group = []  # Temporary list for each group
+index_count=0
+while len(all_stats) < total_roll:
+    total = sum(roll_dice())
+    current_group.append(total)
+    
+    if len(current_group) == 6 and index_count<=total_roll:
+        updatelog(current_group)
+        all_stats.append(current_group)
+        print('Your character will start with the following player stats ' + str(all_stats) + '\n')
+        index_count+=1
+        current_group = []
+    
 
+
+
+#-------------------------------------------------------------------------------------------------------------
+#need to open the file and read back the last number of rolls that were selected.
+roll_hist= pd.read_csv("rolledhistory.csv",header=None)
+print(roll_hist.tail())
+
+
+#-------------------------------------------------------------------------------------------------------------
+#assign rolled numbers to an attribute in dict
+
+for i in current_group:
+    print('Which characterisitic would you like to assign the first number to?')
+
+    for k in CurCha:
+        CurCha[k]=i
+        print(CurCha)
+    
+
+#-------------------------------------------------------------------------------------------------------------
+"""
 SelectRace=input('Select one of the following Races.\n' + str(PlayerRaces)+'\n').lower()
 
 print('You have selected '+str(SelectRace).title())
 
 print(str(SelectRace).title() + ' recieves the following Racial bonuses '+str(RacialMod[SelectRace.title()]))
+"""
