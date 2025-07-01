@@ -1,37 +1,36 @@
 import turtle as t
-from math import sqrt
+import random
+t.bgcolor("lightgrey")
+t.pensize(3)
+def tur_turn():
+    direction=random.randint(1,6)
+    if direction == 2:
+        t.right(90)
+        t.color("blue")
+    elif direction == 3:
+        t.left(90)
+        t.color("red")
+    elif direction == 4:
+        t.right(180)
+        t.color("orange")
+    elif direction == 5:
+        t.right(45)
+        t.color("green")
+    elif direction == 6:
+        t.left(45)
+        t.color("purple")
+    else:
+        print('move forward')
+        t.color("black")
+        t.stamp()
 
-
-def square(size):
-    t.forward(size)
-    t.right(90)
-    t.forward(size)
-    t.right(90)
-    t.forward(size)
-    t.right(90)
-    t.forward(size)
-    t.right(90)
-
-def triangle(a,b,):
-    c=sqrt(a**2+b**2)
-    print(c)
-    t.forward(a)
-    t.left(180-90)
-    t.forward(b)
-    t.left(180-30)
-    t.forward(c)
-
-#square(55)
-side = 0
-
-def drawSquare():
-    while side<101:
-        side+=3
-        square(side)
-        print(side)
-#drawSquare()
-
-triangle(30,40)
-    
-
-
+def tur_move():
+    move=random.randint(0,10)
+    t.forward(move*3.14159)
+    return move
+count = 0
+while count <= 199:
+    tur_turn()
+    tur_move()
+    count += 1
+    print(count)
